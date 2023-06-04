@@ -18,6 +18,7 @@ class AzureSettings(BaseSettings):
     search_service: str
     search_index: str
     search_keys: str
+    semantic_configuration: str
     formrecognizer_endpoint: str
     formrecognizer_key: str
 

@@ -2,9 +2,9 @@ import sys
 import logging
 
 from pathlib import Path
-from pydantic import BaseModel
 from functools import lru_cache
 from athena.core.config import ApiSettings
+from athena.core.models import LoggerConfig
 from rich.logging import RichHandler
 
 settings = ApiSettings()
@@ -12,14 +12,6 @@ settings = ApiSettings()
 LOGGER_FILE = Path(settings.logger_file)  # where log is stored
 DATE_FORMAT = "%d %b %Y | %H:%M:%S"
 LOGGER_FORMAT = "%(asctime)s | %(message)s"
-
-
-class LoggerConfig(BaseModel):
-    handlers: list
-    format: str | None
-    date_format: str | None = None
-    logger_file: Path | None = None
-    level: int = logging.DEBUG
 
 
 @lru_cache

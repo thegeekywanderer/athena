@@ -72,8 +72,14 @@ class ReadRetrieveReadApproach:
             result = client.search(
                 search_text=query,
                 filter=filter,
-                query_type=QueryType.FULL,
+                query_type=QueryType.SEMANTIC,
+                query_language="en-us",
+                query_speller="lexicon",
+                semantic_configuration_name=settings.semantic_configuration,
                 top=overrides.top,
+                query_caption="extractive|highlight-false"
+                if overrides.semantic_captions
+                else None,
             )
         else:
             result = client.search(search_text=query, filter=filter, top=overrides.top)

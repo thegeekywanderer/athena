@@ -19,9 +19,6 @@ class Overrides(BaseModel):
     exclude_category: str | None = None
     top: int | None = 3
     temperature: float = 0.7
-    prompt_template: str | None = None
-    prompt_template_prefix: str | None = None
-    prompt_template_suffix: str | None = None
     suggest_followup_questions: bool = True
 
 

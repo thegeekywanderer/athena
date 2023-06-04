@@ -11,7 +11,7 @@ python = "^3.10"
 fastapi = "^0.95.2"
 pydantic = "^1.10.8"
 openai = "^0.27.7"
-azure-search-documents = "^11.3.0"
+azure-search-documents = {version = "^11.4.0b3", allow-prereleases = true}
 azure-identity = "^1.13.0"
 langchain = "^0.0.189"
 azure-storage-blob = "^12.16.0"

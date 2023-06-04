@@ -57,7 +57,7 @@ class ReadRetrieveReadApproach:
         return MessageResponse(
             data_points=search_result,
             answer=chat_completion.choices[0].message["content"],
-            thoughts=f"Searched for:<br>{query}<br><br>Prompt:<br>",
+            thoughts=f"Searched for:<br>{query}<br>",
         )
 
     def cognitive_search(

@@ -5,6 +5,7 @@ from pydantic import BaseSettings
 class ApiSettings(BaseSettings):
     env_state: Literal["dev", "prod"]
     logger_file: str
+    cors_origin: str
 
     class Config:
         env_file = ".api.env"

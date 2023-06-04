@@ -1,0 +1,9 @@
+version: "2"
+authtoken: 2Qk6aaxZNlMkpAm4cxC6KyvvF5d_6NCCG8eCCsjMqizxfdU9r
+tunnels:
+  app:
+    addr: 5173
+    proto: http
+  core:
+    addr: 8000
+    proto: http

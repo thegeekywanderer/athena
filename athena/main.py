@@ -1,4 +1,5 @@
 import uvicorn
+import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,6 +11,7 @@ from athena.core.config import ApiSettings
 
 
 config = ApiSettings()
+logger = logging.getLogger()
 
 
 def init() -> FastAPI:
@@ -18,6 +20,7 @@ def init() -> FastAPI:
     app.include_router(chat.router)
     setup_rich_logger()
     origins = [config.cors_origin]
+    logger.info("Initializing Athena Core...")
 
     app.add_middleware(
         CORSMiddleware,

@@ -31,14 +31,14 @@ class ReadRetrieveReadApproach:
         history: list[ChatHistory],
         overrides: Overrides | None = None,
     ) -> None:
+        logger.info("Building search query...")
         query = self.build_search_query(history=history)
-        logger.warning(query)
 
+        logger.info("Executing semantic search...")
         search_result = self.cognitive_search(
             query=query, client=search_client, overrides=overrides
         )
         content = "\n".join(search_result)
-        logger.warning(content)
         follow_up_questions_prompt = (
             FollowUpQuestionsPrompt() if overrides.suggest_followup_questions else ""
         )
@@ -48,6 +48,7 @@ class ReadRetrieveReadApproach:
             history=history,
             followup_questions=follow_up_questions_prompt,
         )
+        logger.info("Running chatgpt on generated prompt...")
         chat_completion = openai.ChatCompletion.create(
             model=self.chatgpt_model,
             messages=chat_prompt,

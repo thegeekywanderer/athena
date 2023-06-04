@@ -22,14 +22,17 @@ class CognitiveIndex:
         cognitive_search: SearchClient,
         category: str | None,
     ) -> None:
+        logger.info("Analyzing document...")
         lro_poller = formrecognizer.begin_analyze_document(
             model_id="prebuilt-layout", document=file_data
         )
         results = lro_poller.result()
+        logger.info("Creating page map and sections...")
         page_map = self.get_page_map(form_result=results)
         sections = self.create_sections(
             filename=filename, page_map=page_map, category=category
         )
+        logger.info("Indexing Sections...")
         self.index_sections(client=cognitive_search, sections=sections)
 
     def get_page_map(self, form_result: AnalyzeResult) -> list[tuple[str]]:

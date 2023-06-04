@@ -9,6 +9,7 @@ from athena.libs.indexer import CognitiveIndex
 from fastapi import APIRouter, UploadFile, Request
 
 router = APIRouter(tags=["file"], prefix="/file")
+logger = logging.getLogger()
 
 
 def blob_name_from_file_page(filename, page=0):
@@ -88,7 +89,7 @@ async def remove(request: Request, filename: str = None):
             ),
         )
     for blob in blobs:
-        logging.info(f"\tRemoving blob {blob}")
+        logger.info(f"Removing blob {blob}...")
         blob_container.delete_blob(blob)
     while True:
         filter = (

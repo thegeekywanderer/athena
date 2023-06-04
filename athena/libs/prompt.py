@@ -1,8 +1,13 @@
+import logging
+
 from athena.core.models import MessagePrompt, ChatHistory
+
+logger = logging.getLogger()
 
 
 class GPTPrompt:
     def __new__(cls, history: str, question: str) -> str:
+        logger.info("Generating GPT Prompt...")
         query_prompt_template: str = """
         Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base about a companies internal documents.
         Generate a search query based on the conversation and the new question. 
@@ -23,6 +28,7 @@ class GPTPrompt:
 
 class FollowUpQuestionsPrompt:
     def __new__(cls) -> str:
+        logger.info("Generating followup questions prompt...")
         prompt = """
             Generate three very brief follow-up questions that the user would likely ask next about their companies internal document. 
             Use double angle brackets to reference the questions, e.g. <<Are there exclusions for aws tags?>>.
@@ -36,6 +42,7 @@ class ChatGPTPrompt:
     def __new__(
         cls, sources: str, history: list[ChatHistory], followup_questions: str
     ) -> list[dict]:
+        logger.info("Generating ChatGPT Prompt...")
         system_prompt_content = f"""
             Assistant helps the company employees with questions regarding company documents. Be brief in your answers.
             Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.

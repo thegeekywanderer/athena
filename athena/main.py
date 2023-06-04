@@ -1,12 +1,21 @@
 import uvicorn
+
 from fastapi import FastAPI
+from athena.routers import file_handler, chat
+from athena.core.logger import setup_rich_logger
+from athena.core.lifespan import azure_resource_connections
 
-app = FastAPI()
+
+def init() -> FastAPI:
+    app = FastAPI(lifespan=azure_resource_connections)
+    app.include_router(file_handler.router)
+    app.include_router(chat.router)
+    setup_rich_logger()
+
+    return app
 
 
-@app.get("/")
-async def root():
-    return {"response": "Hello I'm athena"}
+app = init()
 
 
 def start():
